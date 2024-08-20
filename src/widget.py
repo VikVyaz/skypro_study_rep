@@ -20,10 +20,18 @@ def mask_account_card(acc_and_numbers: str) -> str:
     return f'{letters}{numbers}'
 
 
+def get_date(date: str) -> str:
+    """Функция расчета даты по вводу"""
+
+    return f'{date[8:10]}.{date[5:7]}.{date[:4]}'
+
+
 if __name__ == "__main__":
     acc_and_card_number_input = input("Введите данные:\n")
     date_input = input("Введите дату:\n")
     print(
         f'\nЗамаскированные данные:\n'
         f'{mask_account_card(acc_and_card_number_input)}\n'
+        f'Дата:\n'
+        f'{get_date(date_input)}'
     )

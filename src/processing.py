@@ -15,17 +15,17 @@ def filter_by_state(info: list, state: str = "EXECUTED") -> list:
     return final_dict
 
 
-def sort_by_date(info: list, reverse: bool = True) -> list:
-    """Функция сортировки по дате(по умолчанию - убывание)"""
+def sort_by_date(info: list, reverse: bool = False) -> list:
+    """Функция сортировки по дате(по умолчанию - возрастанию)"""
 
     list_to_return = {}
     info_for_this_def = info
     for dictat in info_for_this_def:
-        for key_1, value_1 in dictat.items():
-            if key_1 == 'id':
-                list_to_return[value_1] = dictat['date']
-            if key_1 == 'date':
-                dictat[key_1] = get_date(value_1)
+        for id_or_date, value_of_id_or_date in dictat.items():
+            if id_or_date == 'id':
+                list_to_return[value_of_id_or_date] = dictat['date']
+            if id_or_date == 'date':
+                dictat[id_or_date] = get_date(value_of_id_or_date)
 
     sorted_list = sorted(
         info_for_this_def,
@@ -33,29 +33,31 @@ def sort_by_date(info: list, reverse: bool = True) -> list:
     )
 
     for dictat in sorted_list:
-        for key_2, value_2 in dictat.items():
-            for key_3, value_3 in list_to_return.items():
-                if value_2 == key_3:
-                    dictat['date'] = list_to_return[key_3]
+        for sorted_key, sorted_value in dictat.items():
+            for key_to_return, value_to_return in list_to_return.items():
+                if sorted_value == key_to_return:
+                    dictat['date'] = list_to_return[key_to_return]
 
     return sorted_list
 
 
 if __name__ == "__main__":
+    # Блок ввода
     input_data = input("Введите данные(в виде списка словарей):\n")
     input_state = input("Введите сортировочный ключ(если оставить поле пустым - по умолчанию EXECUTED):\n")
-    input_reverse_date = input("Отсортировать данные по дате по убыванию? (yes/no)\n")
+    input_reverse_date = input("Отсортировать данные по дате по возрастанию? (yes/no)\n")
 
-    true_data = eval(input_data)
+    true_data = eval(input_data)  # str -> list with dict
     if input_state != "":
         correct_state = input_state.upper()
         print(f'Отсортированные данные по ключу:\n{filter_by_state(true_data, correct_state)}')
     else:
         print(f'Отсортированные данные по ключу:\n{filter_by_state(true_data)}')
 
+    # Проверка для reverse
     if input_reverse_date.lower() == 'no':
-        print(f'Отсортированные данные по дате(по возрастанию):\n'
-              f'{sort_by_date(true_data, reverse=False)}')
+        print(f'Отсортированные данные по дате(по убыванию):\n'
+              f'{sort_by_date(true_data, reverse=True)}')
     else:
-        print(f'Сортировка происходит по умолчанию(по убыванию):\n'
+        print(f'Сортировка происходит по умолчанию(по возрастанию):\n'
               f'{sort_by_date(true_data)}')

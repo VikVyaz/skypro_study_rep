@@ -1,8 +1,9 @@
 from datetime import datetime
-from widget import get_date
+
+from src.widget import get_date
 
 
-def filter_by_state(info: list, state="EXECUTED") -> list:
+def filter_by_state(info: list, state: str = "EXECUTED") -> list:
     """Функция сортировки по ключу state(по умолчанию - EXECUTED)"""
 
     final_dict = []
@@ -14,7 +15,7 @@ def filter_by_state(info: list, state="EXECUTED") -> list:
     return final_dict
 
 
-def sort_by_date(info: list, reverse=True) -> list:
+def sort_by_date(info: list, reverse: bool = True) -> list:
     """Функция сортировки по дате(по умолчанию - убывание)"""
 
     list_to_return = {}

@@ -27,7 +27,7 @@ def get_date(date: str) -> str:
 
 
 if __name__ == "__main__":
-    acc_and_card_number_input = input("Введите данные:\n")
+    acc_and_card_number_input = input("Введите данные(тип и номера счета/карты):\n")
     date_input = input("Введите дату:\n")
     print(
         f'\nЗамаскированные данные:\n'

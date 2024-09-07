@@ -1,6 +1,5 @@
 from src.processing import filter_by_state, sort_by_date
 
-
 executed_test = [{'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'},
                  {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'}
                  ]
@@ -14,19 +13,19 @@ sorted_date_test = [{'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T0
                     ]
 
 
-def test_filter_by_state_1(data_in_processing_py):
+def test_filter_by_state_1(data_in_processing_py: list) -> None:
     """Тест сортировки по ключу EXECUTED"""
 
     assert filter_by_state(data_in_processing_py) == executed_test
 
 
-def test_filter_by_state_2(data_in_processing_py):
+def test_filter_by_state_2(data_in_processing_py: list) -> None:
     """Тест сортировки по ключу CANCELED"""
 
     assert filter_by_state(data_in_processing_py, state='CANCELED') == canceled_test
 
 
-def test_sort_by_date(data_in_processing_py):
+def test_sort_by_date(data_in_processing_py: list) -> None:
     """Тест сортировки по дате(по возрастанию)"""
 
     assert sort_by_date(data_in_processing_py) == sorted_date_test

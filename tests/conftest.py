@@ -29,7 +29,7 @@ def date() -> str:
 
 # Фикстуры для processing.py
 @pytest.fixture
-def data_in_processing_py():
+def data_in_processing_py() -> list:
     """input-фикстура для test_filter_by_state и test_sort_by_date"""
 
     x = [{'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'},

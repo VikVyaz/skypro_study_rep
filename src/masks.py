@@ -16,16 +16,22 @@ def get_user_input() -> list:
     card_number_input = input("Введите номер карты(16 цифр):\n")
     account_number_input = input("Введите номер счета(цифрами):\n")
 
-    # Проверка того, что введены были цифры и номер карты состоит из 16 цифр
-    if card_number_input.isdigit() and account_number_input.isdigit() and len(card_number_input) == 16:
-        return [card_number_input, account_number_input]
-    else:  # Вывод, относительно того, что именно неправильно ввелось
-        if card_number_input.isdigit() and len(card_number_input) != 16:
-            print("Некорректный ввод. Номер карты состоит из 16 цифр.\nПопробуем еще раз")
-            get_user_input()
-        else:
-            print("Некорректный ввод. Введите цифрами.\nПопробуем еще раз")
-            get_user_input()
+    return [card_number_input, account_number_input]
+
+
+def checking_the_input(check_list: list) -> list:
+    """Проверка введенных данных"""
+
+    if check_list[0].isdigit() and check_list[1].isdigit() and len(check_list[0]) == 16:
+        return check_list
+    elif check_list[0].isdigit() and len(check_list[0]) != 16:
+        print(
+              "Некорректный ввод. Номер карты состоит из 16 цифр."
+              )
+    else:
+        print(
+              "Некорректный ввод. Введите цифрами."
+              )
     return []  # Заплатка, тк mypy ругался, что нет return.
     # Другие способы, которые приходили в голову, не убирали ошибку.
 
@@ -40,7 +46,8 @@ def print_the_masks(card_number: int, account_number: int) -> None:
 
 
 if __name__ == "__main__":  # В видео урока, комментах и на Хабре рекомендуют такую конструкцию
-    CARD_AND_ACCOUNT_INFO = get_user_input()  # Добавление констант для последующего использования
-    CARD_NUMBER = int(CARD_AND_ACCOUNT_INFO[0])
-    ACCOUNT_NUMBER = int(CARD_AND_ACCOUNT_INFO[1])
-    print_the_masks(CARD_NUMBER, ACCOUNT_NUMBER)
+    CARD_AND_ACCOUNT_INFO = checking_the_input(get_user_input())
+    if CARD_AND_ACCOUNT_INFO:
+        CARD_NUMBER = int(CARD_AND_ACCOUNT_INFO[0])
+        ACCOUNT_NUMBER = int(CARD_AND_ACCOUNT_INFO[1])
+        print_the_masks(CARD_NUMBER, ACCOUNT_NUMBER)

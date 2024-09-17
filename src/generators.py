@@ -9,13 +9,12 @@ def filter_by_currency(transactions: list, code: str) -> typing.Any:
         yield filter_transaction[i]
 
 
-# def transaction_descriptions(transactions: list) -> typing.Any:
-#     """Генератор вывода описаний к транзакциям"""
-#
-#     descriptions = [value for i in transactions for key, value in i.items() if key == 'description']
-#     for i in range(len(descriptions)):
-#         yield descriptions[i]
+def transaction_descriptions(transactions: list) -> typing.Any:
+    """Генератор вывода описаний к транзакциям"""
 
+    descriptions = [value for i in transactions for key, value in i.items() if key == 'description']
+    for i in range(len(descriptions)):
+        yield descriptions[i]
 
 
 if __name__ == "__main__":
@@ -24,12 +23,12 @@ if __name__ == "__main__":
     code_input = "USD"
     # input("Введите валюту(USD или RUB): "))
     transactions_list = eval(transactions_input)
-    if code_input == "USD" or "RUB":
+    if code_input in ["USD", "RUB"]:
         filter_gen = filter_by_currency(transactions_list, code_input)
-        for i1 in range(3):
+        for i1 in range(len([i for i in transactions_list if i['operationAmount']['currency']['code'] == code_input])):
             print(next(filter_gen))
-        # func = transaction_descriptions(transactions_list)
-        # for i2 in range(3):
-        #     print(next(func))
+        func = transaction_descriptions(transactions_list)
+        for i2 in range(len([value for i in transactions_list for key, value in i.items() if key == 'description'])):
+            print(next(func))
     else:
         print("Введите корректную валюту")

@@ -1,6 +1,6 @@
 import pytest
 
-from src.generators import filter_by_currency
+from src.generators import filter_by_currency, transaction_descriptions
 
 usd_expected = [
     {
@@ -164,13 +164,31 @@ transactions = (
     ]
 )
 
+descriptions_expected = ['Перевод организации',
+                         'Перевод со счета на счет',
+                         'Перевод со счета на счет',
+                         'Перевод с карты на карту',
+                         'Перевод организации'
+                         ]
 
 @pytest.mark.parametrize("trans, code, expected", [
     (transactions, "USD", usd_expected),
     (transactions, "RUB", rub_expected)
 ])
-def test_filter_by_currency(trans, code, expected):
+def test_filter_by_currency(trans: list, code: str, expected: list) -> None:
     generator = filter_by_currency(trans, code)
     for i in range(2):
         assert next(generator) in expected
 
+
+@pytest.mark.parametrize("trans, expected", [
+    (transactions, descriptions_expected),
+    (transactions, descriptions_expected),
+    (transactions, descriptions_expected),
+    (transactions, descriptions_expected),
+    (transactions, descriptions_expected)
+])
+def test_transaction_descriptions(trans: list, expected: list) -> None:
+    generator = transaction_descriptions(trans)
+    for i in range(5):
+        assert next(generator) in expected

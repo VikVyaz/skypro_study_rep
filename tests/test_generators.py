@@ -1,8 +1,10 @@
+import builtins
 import random
+from unittest import mock
 
 import pytest
 
-from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
+from src.generators import card_number_generator, filter_by_currency, get_user_inputs, transaction_descriptions
 
 usd_expected = [
     {
@@ -190,3 +192,10 @@ def test_card_number_generator(card_number_expected: list) -> None:
     generator = card_number_generator(str(random_start), str(random_stop))
     for iteration in generator:
         assert iteration in card_number_expected
+
+
+def test_get_user_inputs() -> None:
+    """Тест get_user_inputs"""
+
+    with mock.patch.object(builtins, 'input', lambda _: 'test'):
+        assert get_user_inputs() == ["test", "test", "test", "test"]

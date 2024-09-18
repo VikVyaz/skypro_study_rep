@@ -58,23 +58,23 @@ def to_print_result(func: typing.Generator) -> None:
 
 
 if __name__ == "__main__":
-    transactions_input = input("Введите транзакции: ")
-    code_input = input("Введите валюту(USD или RUB): ")
+    transactions_input = input("Введите транзакции: \n")
+    code_input = input("Введите валюту(USD или RUB): \n")
     card_num_start_input = input(
         "Генерация номера карты."
-        "Укажите начальные цифры(целое число, по умолчанию 0000 0000 0000 0001): "
+        "Укажите начальные цифры(целое число, по умолчанию 0000 0000 0000 0001): \n"
     )
     card_num_stop_input = input(
-        "И конечные цифры(целое число, по умолчанию 9999 9999 9999 9999): "
+        "И конечные цифры(целое число, по умолчанию 9999 9999 9999 9999): \n"
     )
 
-    # transactions_list = eval(transactions_input)
-    #
-    # filter_gen = filter_by_currency(transactions_list, code_input)
-    # to_print_result(filter_gen)
-    #
-    # description_func = transaction_descriptions(transactions_list)
-    # to_print_result(description_func)
-    #
-    # card_num_gen = card_number_generator(card_num_start_input, card_num_stop_input)
-    # to_print_result(card_num_gen)
+    transactions_list = eval(transactions_input)
+
+    filter_gen = filter_by_currency(transactions_list, code_input)
+    to_print_result(filter_gen)
+
+    description_func = transaction_descriptions(transactions_list)
+    to_print_result(description_func)
+
+    card_num_gen = card_number_generator(card_num_start_input, card_num_stop_input)
+    to_print_result(card_num_gen)

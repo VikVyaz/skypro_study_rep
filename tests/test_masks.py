@@ -1,6 +1,9 @@
+import builtins
+from unittest import mock
+
 import pytest
 
-from src.masks import checking_the_input, get_mask_account, get_mask_card_number
+from src.masks import checking_the_input, get_mask_account, get_mask_card_number, get_user_input
 
 
 def test_get_mask_card_number(card_number: int) -> None:
@@ -24,3 +27,10 @@ def test_checking_the_input(data: list, expected: list) -> None:
     """Тест проверки входных данных(номер карты - только 16 цифр, номер аккаунта - цифры)"""
 
     assert checking_the_input(data) == expected
+
+
+def test_get_user_input() -> None:
+    """Тест get_user_input"""
+
+    with mock.patch.object(builtins, 'input', lambda _: 'tests'):
+        assert get_user_input() == ["tests", "tests"]

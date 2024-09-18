@@ -57,7 +57,10 @@ def to_print_result(func: typing.Generator) -> None:
         print(value)
 
 
-if __name__ == "__main__":
+def get_user_inputs() -> list:
+    """Функция приема входных данных"""
+    """(транзакции, название валюты, диапазон генерации номера карты)"""
+
     transactions_input = input("Введите транзакции: \n")
     code_input = input("Введите валюту(USD или RUB): \n")
     card_num_start_input = input(
@@ -68,13 +71,19 @@ if __name__ == "__main__":
         "И конечные цифры(целое число, по умолчанию 9999 9999 9999 9999): \n"
     )
 
-    transactions_list = eval(transactions_input)
+    return [transactions_input, code_input, card_num_start_input, card_num_stop_input]
 
-    filter_gen = filter_by_currency(transactions_list, code_input)
+
+if __name__ == "__main__":
+    data = get_user_inputs()
+
+    transactions_list = eval(data[0])
+
+    filter_gen = filter_by_currency(transactions_list, data[1])
     to_print_result(filter_gen)
 
     description_func = transaction_descriptions(transactions_list)
     to_print_result(description_func)
 
-    card_num_gen = card_number_generator(card_num_start_input, card_num_stop_input)
+    card_num_gen = card_number_generator(data[3], data[4])
     to_print_result(card_num_gen)

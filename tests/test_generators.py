@@ -1,6 +1,8 @@
+import random
+
 import pytest
 
-from src.generators import filter_by_currency, transaction_descriptions
+from src.generators import filter_by_currency, transaction_descriptions, card_number_generator
 
 usd_expected = [
     {
@@ -51,7 +53,6 @@ usd_expected = [
 ]
 
 rub_expected = [
-
     {
         "id": 873106923,
         "state": "EXECUTED",
@@ -164,31 +165,28 @@ transactions = (
     ]
 )
 
-descriptions_expected = ['Перевод организации',
-                         'Перевод со счета на счет',
-                         'Перевод со счета на счет',
-                         'Перевод с карты на карту',
-                         'Перевод организации'
-                         ]
 
 @pytest.mark.parametrize("trans, code, expected", [
     (transactions, "USD", usd_expected),
-    (transactions, "RUB", rub_expected)
+    (transactions, "RUB", rub_expected),
+    ([], "USD", "Транзакции отсутствуют"),
+    (transactions, "RB", "Введена неизвестная валюта")
 ])
 def test_filter_by_currency(trans: list, code: str, expected: list) -> None:
     generator = filter_by_currency(trans, code)
-    for i in range(2):
-        assert next(generator) in expected
+    for iteration in generator:
+        assert iteration in expected
 
 
-@pytest.mark.parametrize("trans, expected", [
-    (transactions, descriptions_expected),
-    (transactions, descriptions_expected),
-    (transactions, descriptions_expected),
-    (transactions, descriptions_expected),
-    (transactions, descriptions_expected)
-])
-def test_transaction_descriptions(trans: list, expected: list) -> None:
-    generator = transaction_descriptions(trans)
-    for i in range(5):
-        assert next(generator) in expected
+def test_transaction_descriptions(descriptions_expected: list) -> None:
+    generator = transaction_descriptions(transactions)
+    for iteration in generator:
+        assert iteration in descriptions_expected
+
+
+def test_card_number_generator(card_number_expected: list) -> None:
+    random_start = random.randint(0, 5)
+    random_stop = random.randint(6, 10)
+    generator = card_number_generator(str(random_start), str(random_stop))
+    for iteration in generator:
+        assert iteration in card_number_expected

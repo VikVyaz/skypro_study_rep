@@ -85,5 +85,5 @@ if __name__ == "__main__":
     description_func = transaction_descriptions(transactions_list)
     to_print_result(description_func)
 
-    card_num_gen = card_number_generator(data[3], data[4])
+    card_num_gen = card_number_generator(data[2], data[3])
     to_print_result(card_num_gen)

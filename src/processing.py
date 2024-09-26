@@ -41,21 +41,28 @@ def sort_by_date(info: list, reverse: bool = False) -> list:
     return sorted_list
 
 
-if __name__ == "__main__":
-    # Блок ввода
+def get_user_input() -> list:
+    """Пользовательский ввод"""
+
     input_data = input("Введите данные(в виде списка словарей):\n")
     input_state = input("Введите сортировочный ключ(если оставить поле пустым - по умолчанию EXECUTED):\n")
     input_reverse_date = input("Отсортировать данные по дате по возрастанию? (yes/no)\n")
 
-    true_data = eval(input_data)  # str -> list with dict
-    if input_state != "":
-        correct_state = input_state.upper()
+    return [input_data, input_state, input_reverse_date]
+
+
+if __name__ == "__main__":
+    incoming_data = get_user_input()
+
+    true_data = eval(incoming_data[0])  # str -> list with dict
+    if incoming_data[1] != "":
+        correct_state = incoming_data[1].upper()
         print(f'Отсортированные данные по ключу:\n{filter_by_state(true_data, correct_state)}')
     else:
         print(f'Отсортированные данные по ключу:\n{filter_by_state(true_data)}')
 
     # Проверка для reverse
-    if input_reverse_date.lower() == 'no':
+    if incoming_data[2].lower() == 'no':
         print(f'Отсортированные данные по дате(по убыванию):\n'
               f'{sort_by_date(true_data, reverse=True)}')
     else:

@@ -11,18 +11,18 @@ def log(log_name: str = "") -> typing.Any:
                             format="[%(asctime)s | %(levelname)s]: %(message)s")
     else:
         logging.basicConfig(level=logging.INFO,
-                            filename=f"{log_name}.txt",
+                            filename=f"{log_name}",
                             filemode="w",
                             format="[%(asctime)s | %(levelname)s]: %(message)s")
 
     def log_decor(func: typing.Any) -> typing.Any:
-        def log_this() -> typing.Any:
-            logging.info(f"Function '{func.__name__}' started")
+        def log_this(*args, **kwargs) -> typing.Any:
             try:
-                func()
-                logging.info(f"Function '{func.__name__}' end with result: {func()}")
-            except Exception:
-                logging.exception("Function ended with error:\n", exc_info=True)
+                func(*args, **kwargs)
+                logging.info(f"'{func.__name__}' ok")
+            except Exception as e:
+                logging.info(f"'{func.__name__}' error: {e}. Inputs: {*args, kwargs}")
+                raise Exception("Error")
 
         return log_this
 

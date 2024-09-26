@@ -1,5 +1,6 @@
 import logging
 import typing
+from functools import wraps
 
 
 def log(log_name: str = "") -> typing.Any:
@@ -16,6 +17,7 @@ def log(log_name: str = "") -> typing.Any:
                             format="[%(asctime)s | %(levelname)s]: %(message)s")
 
     def log_decor(func: typing.Any) -> typing.Any:
+        @wraps(func)
         def log_this(*args: typing.Any, **kwargs: typing.Any) -> typing.Any:
             try:
                 func(*args, **kwargs)

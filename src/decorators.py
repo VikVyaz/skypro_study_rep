@@ -16,7 +16,7 @@ def log(log_name: str = "") -> typing.Any:
                             format="[%(asctime)s | %(levelname)s]: %(message)s")
 
     def log_decor(func: typing.Any) -> typing.Any:
-        def log_this(*args, **kwargs) -> typing.Any:
+        def log_this(*args: typing.Any, **kwargs: typing.Any) -> typing.Any:
             try:
                 func(*args, **kwargs)
                 logging.info(f"'{func.__name__}' ok")

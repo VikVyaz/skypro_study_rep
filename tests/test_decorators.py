@@ -1,11 +1,13 @@
+import typing
+
 import pytest
 
 from src.decorators import log
 
 
 @log("123")
-def func():
-    raise ZeroDivisionError
+def func() -> None:
+    raise ZeroDivisionError("Error")
 
 
 def test_log() -> None:
@@ -13,9 +15,9 @@ def test_log() -> None:
         func()
 
 
-def test_console_log(capsys):
+def test_console_log(capsys: typing.Any) -> None:
     @log("")
-    def unit():
+    def unit() -> None:
         print("123")
 
     unit()

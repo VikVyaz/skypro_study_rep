@@ -1,10 +1,12 @@
 import builtins
 import random
+import typing
 from unittest import mock
 
 import pytest
 
-from src.generators import card_number_generator, to_print_result, filter_by_currency, get_user_inputs, transaction_descriptions
+from src.generators import (card_number_generator, filter_by_currency, get_user_inputs, to_print_result,
+                            transaction_descriptions)
 
 usd_expected = [
     {
@@ -201,8 +203,8 @@ def test_get_user_inputs() -> None:
         assert get_user_inputs() == ["test", "test", "test", "test"]
 
 
-def test_to_print_result(capsys):
-    def generator():
+def test_to_print_result(capsys: typing.Any) -> None:
+    def generator() -> typing.Generator:
         for i in range(2):
             yield i
 

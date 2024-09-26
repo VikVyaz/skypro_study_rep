@@ -1,6 +1,7 @@
-from src.processing import filter_by_state, sort_by_date, get_user_input
 import builtins
 from unittest import mock
+
+from src.processing import filter_by_state, get_user_input, sort_by_date
 
 executed_test = [{'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'},
                  {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'}
@@ -33,7 +34,7 @@ def test_sort_by_date(data_in_processing_py: list) -> None:
     assert sort_by_date(data_in_processing_py) == sorted_date_test
 
 
-def test_get_user_input():
+def test_get_user_input() -> None:
     """Тест get_user_input"""
 
     with mock.patch.object(builtins, 'input', lambda _: 'test'):

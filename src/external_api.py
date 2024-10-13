@@ -2,8 +2,9 @@ import os
 import random
 from typing import Union
 
-from dotenv import load_dotenv
 import requests
+from dotenv import load_dotenv
+
 from src.utils import get_finance_data
 
 load_dotenv()
@@ -30,11 +31,11 @@ def to_convert(transaction: dict) -> Union[float, str]:
         }
         try:
             response = requests.get(url, headers=headers, params=payload)
-            return response.json()["result"]
+            return float(response.json()["result"])
         except requests.exceptions.RequestException:
             return 'Something goes wrong'
 
 
 if __name__ == "__main__":
-    pass
-    # print(to_convert(get_finance_data("../data/operations.json")[random.randint(0, 10)]))
+    file_name = "../data/operations.json"
+    print(to_convert(get_finance_data(file_name)[random.randint(0, 10)]))

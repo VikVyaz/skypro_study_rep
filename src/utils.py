@@ -18,5 +18,5 @@ def get_finance_data(source: str) -> list:
 
 
 if __name__ == "__main__":
-    pass
-    # print(get_finance_data("../data/operations.json"))
+    file_name = "../data/operations.json"
+    print(get_finance_data(file_name))

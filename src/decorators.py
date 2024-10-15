@@ -20,8 +20,12 @@ def log(log_name: str = "") -> typing.Any:
         @wraps(func)
         def log_this(*args: typing.Any, **kwargs: typing.Any) -> typing.Any:
             try:
-                func(*args, **kwargs)
-                logging.info(f"'{func.__name__}' ok")
+                if log_name:
+                    logging.info(f"Function '{func.__name__}' complete successfully. Result: {func(*args, **kwargs)}")
+                    return func(*args, **kwargs)
+                else:
+                    logging.info(f"Function '{func.__name__}' complete successfully. Result:")
+                    return func(*args, **kwargs)
             except Exception as e:
                 logging.info(f"'{func.__name__}' error: {e}. Inputs: {*args, kwargs}")
                 raise Exception("Error")

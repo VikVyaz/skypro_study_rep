@@ -6,7 +6,7 @@ def filter_by_currency(transactions: list, code: str) -> typing.Generator:
 
     if transactions:
         if code in ["USD", "RUB"]:
-            filter_transaction = [i for i in transactions if i['operationAmount']['currency']['code'] == code]
+            filter_transaction = [i for i in transactions if i['currency_code'] == code]
             if filter_transaction:
                 for i in range(len(filter_transaction)):
                     yield filter_transaction[i]

@@ -6,11 +6,12 @@ from src.widget import get_date
 def filter_by_state(info: list, state: str = "EXECUTED") -> list:
     """Функция сортировки по ключу state(по умолчанию - EXECUTED)"""
 
-    final_dict = []
-    for dicts_in_info in info:
-        for key, value in dicts_in_info.items():
-            if value == state:
-                final_dict.append(dicts_in_info)
+    # final_dict = []
+    # for dicts_in_info in info:
+    #     for key, value in dicts_in_info.items():
+    #         if value.upper() == state.upper():
+    #             final_dict.append(dicts_in_info)
+    final_dict = list(filter(lambda x: x['state'] == state, info))
 
     return final_dict
 
@@ -46,7 +47,7 @@ def get_user_input() -> list:
 
     input_data = input("Введите данные(в виде списка словарей):\n")
     input_state = input("Введите сортировочный ключ(если оставить поле пустым - по умолчанию EXECUTED):\n")
-    input_reverse_date = input("Отсортировать данные по дате по возрастанию? (yes/no)\n")
+    input_reverse_date = input("Отсортировать данные по дате по возрастанию? (да/нет)\n")
 
     return [input_data, input_state, input_reverse_date]
 
@@ -62,7 +63,7 @@ if __name__ == "__main__":
         print(f'Отсортированные данные по ключу:\n{filter_by_state(true_data)}')
 
     # Проверка для reverse
-    if incoming_data[2].lower() == 'no':
+    if incoming_data[2].lower() == 'нет':
         print(f'Отсортированные данные по дате(по убыванию):\n'
               f'{sort_by_date(true_data, reverse=True)}')
     else:

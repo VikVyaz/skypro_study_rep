@@ -12,7 +12,7 @@ def mask_account_card(acc_and_numbers: str) -> str:
         else:
             letters += symbol
 
-    if 'Счет' in acc_and_numbers:
+    if 'счет' in acc_and_numbers.lower():
         numbers = get_mask_account(int(numbers))
     else:
         numbers = get_mask_card_number(int(numbers))

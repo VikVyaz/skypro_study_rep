@@ -16,11 +16,11 @@ utils_logger = logging.getLogger("utils_logger")
 def get_finance_data(source: str) -> list:
     """Извлечение данных из .json файла.
     Аргумент функции - ссылка формата:
-    ../data/operations.json"""
+    data/operations.json"""
 
     utils_logger.info('Извлечение json-данных...')
     try:
-        with open(f'{source}', encoding='utf-8') as f:
+        with open(source, encoding='utf-8') as f:
             transactions_data = json.load(f)
             if isinstance(transactions_data, list) and transactions_data:
                 utils_logger.info(f'Извлечено успешно в {source}')
@@ -33,5 +33,5 @@ def get_finance_data(source: str) -> list:
 
 
 if __name__ == "__main__":
-    file_name = "../data/operations.json"
+    file_name = "data/transactions.json"
     print(get_finance_data(file_name))

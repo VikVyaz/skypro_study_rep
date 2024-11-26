@@ -3,7 +3,7 @@ from unittest.mock import Mock
 
 import pandas as pd
 
-from src.file_readers import to_read_a_file
+from src.file_reader import to_read_a_file
 
 post_df = [
     {'A': 1, 'B': 4, 'C': 7},
@@ -18,10 +18,10 @@ df = pd.DataFrame({
 })
 
 file_not_found = 'Файл не найден или ошибка ввода. Повторите еще.'
-format_error = 'Неверный формат. Нужен CSV или Excel файл.'
+format_error = 'Нужен JSON, CSV или Excel файл.'
 
-csv_path = 'data/transactions.csv'
-xlsx_path = 'data/transactions_excel.xlsx'
+csv_path = '../data/transactions.csv'
+xlsx_path = '../data/transactions.xlsx'
 wrong_path = 'anyway'
 
 
